@@ -1,0 +1,23 @@
+version: "3.8"
+
+services: 
+  flask-dev:
+    build:
+      context: ./
+      target: dev
+    image: flask-dev
+    ports:
+      - 5000:5000
+    volumes:
+      - ./web:/flask-app/web:ro
+    depends_on: 
+      - redis
+    networks: 
+      - back-end
+  redis:
+    image: redis
+    networks:
+      - back-end
+
+networks:
+  back-end:
